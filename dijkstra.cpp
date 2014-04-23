@@ -3,16 +3,17 @@
 
 using namespace std;
 
-int search(int board[][9], int current, int dest) {
+int[] search(int board[][9], int current, int dest, int sol[] ) {
 	// function is recursive!
 	// dest is the # we want a path to
 	
 
-	return 0;
+	return sol;
 }
 
 int find(int board[][9], int start, int end) {
 	// recursively uses search() to compare the distances
+
 
 
 	return 0;
@@ -55,6 +56,9 @@ int main(int argc, char *argv[]) {
 	printBoard(board, 3, edges);
 	
 	/////////////////// FINDING ROUTES
-	find( board, 1, 2 );
+	for (int i = 1; i < 7; i++)
+		find( board, 1, i );
+	
+	/////////////////// DONE!
 	return 0;
 }

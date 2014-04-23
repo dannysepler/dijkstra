@@ -1,9 +1,9 @@
 go: dijkstra.cpp
-	g++ -o d dijkstra.cpp
-	./d
+	g++ -o executable dijkstra.cpp
+	./executable
 
 clean:
-	rm d
+	rm executable
 
 tar: Makefile dijkstra.cpp inputFile.txt
 	tar -cvf SeplerD_63109305 Makefile dijkstra.cpp inputFile.txt
