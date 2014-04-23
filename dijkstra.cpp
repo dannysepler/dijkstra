@@ -4,8 +4,17 @@
 using namespace std;
 
 int search(int board[][9], int current, int dest) {
-	// dest is the number we want a path to
-	// recursive!
+	// function is recursive!
+	// dest is the # we want a path to
+	
+
+	return 0;
+}
+
+int find(int board[][9], int start, int end) {
+	// recursively uses search() to compare the distances
+
+
 	return 0;
 }
 
@@ -43,9 +52,9 @@ int main(int argc, char *argv[]) {
 	infile.close();
 
 	// to print board --
-	// printBoard(board, 3, edges);
+	printBoard(board, 3, edges);
 	
 	/////////////////// FINDING ROUTES
-
+	find( board, 1, 2 );
 	return 0;
 }
