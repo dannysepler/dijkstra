@@ -1,22 +1,73 @@
+// DANNY SEPLER
+// 6310-9305
+// COP3530 SP 14
+// Homework 6
+
+/////////// INITIAL DECLARATIONS
 #include <iostream>
 #include <fstream>
-
+#include <vector>
 using namespace std;
 
-int[] search(int board[][9], int current, int dest, int sol[] ) {
-	// function is recursive!
-	// dest is the # we want a path to
+////////// FUNCTION TO PRINT
+void printpath(vector<int> path) {
+	int count = 0;
 	
+    for (int i : path) {
+    	if (!count) cout << path << ": ";
+    	else if (count == 1) cout << path;
+  		else cout << " -> " << path;
+    }	
 
-	return sol;
+    cout << endl;
+
 }
 
-int find(int board[][9], int start, int end) {
-	// recursively uses search() to compare the distances
 
+/////////// RECURSIVE FUNCTION
+vector<int> search(int board[][9], vector<int> path, int current, int dest, int val ) {
+	// 	details:
+	// 		dest is the # we want a path to
+	// 		should return the value so far
 
+	// base case
+	if ( current == dest ) {
+		path.push_back(current);
+		return path;
+	}
+
+	/*
+	int count = 0;
+	for (int j = 0; j < 9; j++)
+		// search for all twos
+		if ( board[2][j] == end ) 
+			count++;
+
+	if (count == 1) 
+	*/
 
 	return 0;
+}
+
+//////////// ITERATES FOR EACH LINE OF OUTPUT
+void find(int board[][9], int start, int end) {
+	// recursively uses search() to compare the distances
+	
+	/////////// initializing vector
+	vector<int> path; 
+	path.push_back(0); // this first value will be the cost function
+	path.push_back(start);
+
+	/////////// the loop
+	for (int j = 0; j < 9; j++) {
+		// search for all twos
+		if ( board[2][j] == end ) {
+		}
+	}
+
+
+
+
 }
 
 void printBoard(int board[][9], int rows, int columns) {
@@ -27,8 +78,7 @@ void printBoard(int board[][9], int rows, int columns) {
 	}
 }
 
-int main(int argc, char *argv[]) {
-
+int main(int argc, char *argv[]) {	
 	//////////////// INITIAL DEFINITIONS
 	int source, vertices, edges, temp;
 	int board[3][9];
@@ -37,6 +87,7 @@ int main(int argc, char *argv[]) {
 					//	2) vertex 2
 					//	3) weight
 	
+	cout << endl; // to look clean
 
 	//////////////// READING TEXT FILE +
 	//////////////// POPULATING ARRAY
@@ -53,12 +104,13 @@ int main(int argc, char *argv[]) {
 	infile.close();
 
 	// to print board --
-	printBoard(board, 3, edges);
-	
+	printBoard(board, 3, edges); cout << endl;
+
 	/////////////////// FINDING ROUTES
-	for (int i = 1; i < 7; i++)
+	for (int i = 1; i < 2; i++)
 		find( board, 1, i );
 	
 	/////////////////// DONE!
+	cout << endl;
 	return 0;
 }
