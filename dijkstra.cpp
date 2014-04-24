@@ -10,19 +10,6 @@
 using namespace std;
 
 ////////// PRINT FUNCTIONS
-/*
-void printpath(vector<int> path) {
-	int count = 0;
-	
-    for (int i : path) {
-    	if (!count) cout << i << ": ";
-    	else if (count == 1) cout << i;
-  		else cout << " -> " << i;
-  		count++;
-    }	
-    cout << endl;
-}
-*/
 void printpath( int path[] ) {
 	cout << path[0] << ": ";
 
@@ -32,7 +19,7 @@ void printpath( int path[] ) {
 		else cout << " -> " << path[i];
 		i++;
 	}
-	cout << endl << endl;
+	cout << endl;
 }
 
 void printBoard(int board[][9], int rows, int columns) {
@@ -54,87 +41,44 @@ void printMatrix( int matrix[][6] ) {
 
 
 
-/////////// ALGORITHMIC FUNCTIONS
-/*
-vector<int> search(int board[][9], vector<int> path, 
-	int current, int dest, int row ) {
-	// 	details:
-	// 		dest is the # we want a path to
-	//		current is the # we are on
-	//		row is the # row that we are on
-	// 		should return the value so far
+///////////////////////// ALGORITHMIC FUNCTIONS
+void recurse( int matrix[][6], int end, int current ) {
 
-	// base case
-	if ( current == dest ) {
-		path.push_back(current);
-		return path;
-	}
-
-	// recursive case
-	current = board[2][row];
-	path[0] += board[3][row];
-		// cout << "\tvalue is now " << path[0] << endl;
-	path.push_back( current );
-		// 	cout << "\tpath is now ";
-		//	printpath(path);
-	vector<int> temp;
-
-	for (int j = 0; j < 2; j++) {
-		if ( board[2][j] == end ) {
-			temp = search(board, path, current, end, j);
-			
-			if ( temp[0] < path[0] ) {
-				path = temp;
-			}
-		}
-	}
-
-
-
-	return path;
-}
-*/
-
-void find(int board[][9], int start, int end) {
-	// recursively uses search() to compare the distances
-	
-	/////////// initializing vector
-	vector<int> path; 
-	path.push_back(0); 		// this first value will be the 
-							// cost function
-	path.push_back(start);
-	
-	vector<int> temp; 		// for comparing
-
-	/////////// the loop
-	for (int j = 0; j < 2; j++) {
-		if ( board[2][j] == end ) {
-			cout << "found match for " << end << " on row " << j << endl;
-
-			//temp = search(board, path, start, end, j);
-			
-			//if ( temp[0] < path[0] ) {
-			//	path = temp;
-			//}
-		}
-	}
 }
 
 void findVec( int matrix[][6], int end ) {
+	//cout << "on try " << end << endl;
 	/////////// initializing path
+	end--; // remember we're using array notation
 	int path[10];
 	for (int i = 0; i < 10; i++) 
 		path[i] = 0;
 			// first slot = cost. every other 
 			// slot is the path it takes
 
-	if (end == 1) {
+	path[1] = 1; // every path starts with 1
+
+	if (end == 0) {
 		path[1] = path[2] = 1;
 		// { 0, 1, 1 }
 		printpath( path );
 		return;
 	}
 
+	// case: there's a straight path
+	// and the way is lower than any other
+	// possibilities in that row
+	if ( matrix[0][end] ) {
+		//cout << "took 2nd if" << endl;
+		for (int i = 1; i < 6; i++) {
+			if ( matrix[i][end] > matrix[0][end]) break;
+
+			path[0] = matrix[0][end];
+			path[2] = ++end; // switch out of array notation
+			printpath( path );
+			return;
+		}
+	}
 
 }
 
@@ -171,7 +115,7 @@ int main(int argc, char *argv[]) {
 	// to print board --
 	// printBoard(board, 3, edges); cout << endl;
 	
-	///////////////////////////////
+	///////////////////////////////////////////////
 	// matrix stuff
 
 	int matrix[6][6];
@@ -180,7 +124,7 @@ int main(int argc, char *argv[]) {
 		for (int j = 0; j < 6; j++ )
 			matrix[i][j] = 0;
 
-	// now fill in
+	// now fill in the matrix
 	int a, b, val;
 
 	for (int j = 0; j < 9; j++) {
@@ -193,15 +137,15 @@ int main(int argc, char *argv[]) {
 
 	// to print matrix
 	// printMatrix( matrix );	cout << endl;
-	///////////////////////////////
+	/////////////////////////////////////////////////
 
 
-	/////////////////// FINDING ROUTES
-	for (int i = 1; i < 2; i++)
+	/////////////////////////////////////// FINDING ROUTES
+	for (int i = 1; i < 3; i++)
 	//	find( board, 1, i );
 		findVec( matrix, i );
 
-	/////////////////// DONE!
-	//cout << endl;
+	////////////////////////////////////////	DONE!
+	cout << endl;
 	return 0;
 }
