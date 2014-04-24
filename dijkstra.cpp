@@ -10,6 +10,7 @@
 using namespace std;
 
 ////////// PRINT FUNCTIONS
+/*
 void printpath(vector<int> path) {
 	int count = 0;
 	
@@ -17,8 +18,21 @@ void printpath(vector<int> path) {
     	if (!count) cout << i << ": ";
     	else if (count == 1) cout << i;
   		else cout << " -> " << i;
+  		count++;
     }	
     cout << endl;
+}
+*/
+void printpath( int path[] ) {
+	cout << path[0] << ": ";
+
+	int i = 1;
+	while ( path[i] ) {
+		if (i == 1) cout << path[i];
+		else cout << " -> " << path[i];
+		i++;
+	}
+	cout << endl << endl;
 }
 
 void printBoard(int board[][9], int rows, int columns) {
@@ -106,33 +120,23 @@ void find(int board[][9], int start, int end) {
 	}
 }
 
-/*
-//////////////// MAKE ADJANCY MATRIX
-int adjancyMatrix( int[][6] board ) {
-	int(*) matrix[6] = new int[6][6];
+void findVec( int matrix[][6], int end ) {
+	/////////// initializing path
+	int path[10];
+	for (int i = 0; i < 10; i++) 
+		path[i] = 0;
+			// first slot = cost. every other 
+			// slot is the path it takes
 
-	// initialize it as blank
-	for (int i = 0; i < 6; i++ )
-		for (int j = 0; j < 6; j++ )
-			matrix[i][j] = 0;
-
-	// now fill in
-	int a, b, val;
-
-	for (int j = 0; j < 9; j++) {
-		// get
-		a = board[0][j];
-		b = board[1][j];
-		val = board[2][j];
-
-		// post
-		matrix[a][b] = matrix[b][a] = val;
+	if (end == 1) {
+		path[1] = path[2] = 1;
+		// { 0, 1, 1 }
+		printpath( path );
+		return;
 	}
 
-	// awesome! now we....
-	return matrix;
+
 }
-*/
 
 //////////////// MAIN FUNCTION
 int main(int argc, char *argv[]) {	
@@ -188,14 +192,15 @@ int main(int argc, char *argv[]) {
 	}
 
 	// to print matrix
-	printMatrix( matrix );	cout << endl;
+	// printMatrix( matrix );	cout << endl;
 	///////////////////////////////
 
-	
+
 	/////////////////// FINDING ROUTES
-	//for (int i = 1; i < 5; i++)
+	for (int i = 1; i < 2; i++)
 	//	find( board, 1, i );
-	
+		findVec( matrix, i );
+
 	/////////////////// DONE!
 	//cout << endl;
 	return 0;
